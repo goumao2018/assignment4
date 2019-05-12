@@ -1,37 +1,43 @@
-import React, { Component } from 'react';
+import React, { useState} from "react";
+import styled from "styled-components";
 
-class Addtodos extends Component {
-    state ={
-        todo: null,
-        due: null
-    }
+const Container = styled.div`
+  max-width: 500px;
+  padding: 10px 20px;
+  background: #f4f7f8;
+  margin: 10px auto;
+  padding: 20px;
+  background: #f4f7f8;
+  border-radius: 8px;
+`;
 
-    handleChange = (e) => {
-        this.setState({
-            [e.target.id]: e.target.value 
-        })
-    }
+const Addtodos = props => {
+  const [todo, setTodo] = useState({ todo: null, due: null });
+// const todoVariables = useState({todo: null, due: null});
+// const todo = todoVariables[0];
+// const setTodo = todoVariables[1];
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.addTodo(this.state);
+  const handleChange = e => {
+    setTodo({
+      [e.target.id]: e.target.value
+    });
+  };
 
-    }
-
-    
-    render (){
-      return (
-          <div>
-              <form onSubmit={this.handleSubmit}>
-                  <label htmlFor="name">Things to do:</label>
-                  <input type="text" id="todo" onChange={this.handleChange}/>
-                  <label htmlFor="name">Due:</label>
-                  <input type="text" id="due" onChange={this.handleChange}/>
-                  <button>Add</button>
-              </form>
-          </div>
-      )
-  }
-}
+  const handleSubmit = e => {
+    e.preventDefault();
+    props.addTodo(todo);
+  };
+  return (
+    <Container>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Todo:</label>
+        <input type="text" id="todo" onChange={handleChange} />
+        <label htmlFor="name">Due:</label>
+        <input type="date" id="due" placeholder="dd/mm/yyyy" onChange={handleChange} />
+        <button>Add</button>
+      </form>
+    </Container>
+  );
+};
 
 export default Addtodos;

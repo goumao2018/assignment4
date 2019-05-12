@@ -1,23 +1,52 @@
-import React, { Component } from 'react';
+import React from "react";
+import styled from "styled-components";
+// import AddComment from "./AddComment";
+import "./trash_icon.png";
 
-class Todos extends Component {
-   render(){
-       const todos = this.props.list;
-       const todolist = todos.map((todo, i) => {
-           return(
-        <div key={i}>
-           <div>Todo:  {todo.todo}</div>
-           <div>Due:  {todo.due}</div>
-        </div>
-           )
-       })
-       return(
-           <div>
-               { todolist }
-           </div>
-       
-       )
-   }
-    }
+const Wrapper = styled.div`
+  height: 200px;
+  width: 300px;
+  margin: auto;
+  padding: 30px 20px 0 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: #d5ffef;
+`;
 
-    export default Todos;
+const DeleteWrapper = styled.div`
+  height: 30px;
+  width: 30px;
+  margin-right: 30px;
+  float: right;
+`;
+
+const Icon =styled.img`
+height: 100%;
+width: 100%;
+`;
+
+
+const trash = require('./trash_icon.png');
+
+const Todos = (props) => {
+
+
+  const todos = props.myTodoList;
+  console.log(todos,"------------------")
+
+  return todos.map((todo, i) => {
+    return (
+      <Wrapper key={i}>
+        <div>Todo: {todo.todo}</div>
+        <div>Due: {todo.due}</div>
+        {/* <AddComment addComment={props.addComment}/> */}
+        <DeleteWrapper>
+         <Icon alt="delete" src={trash}/>
+        </DeleteWrapper>
+
+      </Wrapper>
+    );
+  });
+}
+
+export default Todos;
