@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -12,13 +12,14 @@ const Container = styled.div`
 `;
 
 const Addtodos = props => {
-  const [todo, setTodo] = useState({ todo: null, due: null });
-// const todoVariables = useState({todo: null, due: null});
-// const todo = todoVariables[0];
-// const setTodo = todoVariables[1];
+  const [todo, setTodo] = useState({ todo: "", due: "" });
+  // const todoVariables = useState({todo: null, due: null});
+  // const todo = todoVariables[0];
+  // const setTodo = todoVariables[1];
 
   const handleChange = e => {
     setTodo({
+      ...todo,
       [e.target.id]: e.target.value
     });
   };
@@ -26,14 +27,31 @@ const Addtodos = props => {
   const handleSubmit = e => {
     e.preventDefault();
     props.addTodo(todo);
+    setTodo({ todo: "", due: "" });
   };
+
+  useEffect(() => {
+    console.log("This will run when AddTodos render");
+  }, [todo]);
+
   return (
     <Container>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Todo:</label>
-        <input type="text" id="todo" onChange={handleChange} />
+        <input
+          type="text"
+          id="todo"
+          onChange={handleChange}
+          value={todo.todo}
+        />
         <label htmlFor="name">Due:</label>
-        <input type="date" id="due" placeholder="dd/mm/yyyy" onChange={handleChange} />
+        <input
+          type="date"
+          id="due"
+          placeholder="dd/mm/yyyy"
+          onChange={handleChange}
+          value={todo.due}
+        />
         <button>Add</button>
       </form>
     </Container>

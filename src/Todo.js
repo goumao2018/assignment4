@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-// import AddComment from "./AddComment";
 import "./trash_icon.png";
 
 const Wrapper = styled.div`
-  height: 200px;
+  height: 100px;
   width: 300px;
   margin: auto;
   padding: 30px 20px 0 20px;
@@ -20,33 +19,31 @@ const DeleteWrapper = styled.div`
   float: right;
 `;
 
-const Icon =styled.img`
-height: 100%;
-width: 100%;
+const Icon = styled.img`
+  height: 100%;
+  width: 100%;
 `;
 
+const trash = require("./trash_icon.png");
 
-const trash = require('./trash_icon.png');
-
-const Todos = (props) => {
-
-
+const Todos = props => {
   const todos = props.myTodoList;
-  console.log(todos,"------------------")
+  useEffect(() => {
+    console.log("This will run after every time Todos render");
+    return () => console.log("unmounting...");
+  });
 
   return todos.map((todo, i) => {
     return (
       <Wrapper key={i}>
         <div>Todo: {todo.todo}</div>
         <div>Due: {todo.due}</div>
-        {/* <AddComment addComment={props.addComment}/> */}
         <DeleteWrapper>
-         <Icon alt="delete" src={trash}/>
+          <Icon alt="delete" src={trash} />
         </DeleteWrapper>
-
       </Wrapper>
     );
   });
-}
+};
 
 export default Todos;
