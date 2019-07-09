@@ -27,18 +27,23 @@ const Icon = styled.img`
 const trash = require("./trash_icon.png");
 
 const Todos = props => {
+  console.log("why am i not getting rendered?", props);
+
   const todos = props.myTodoList;
   useEffect(() => {
     console.log("This will run after every time Todos render");
     return () => console.log("unmounting...");
   });
-
   return todos.map((todo, i) => {
     return (
       <Wrapper key={i}>
         <div>Todo: {todo.todo}</div>
         <div>Due: {todo.due}</div>
-        <DeleteWrapper>
+        <DeleteWrapper
+          onClick={() => {
+            props.deleteTodo(i);
+          }}
+        >
           <Icon alt="delete" src={trash} />
         </DeleteWrapper>
       </Wrapper>
